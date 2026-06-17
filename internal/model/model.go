@@ -2,7 +2,6 @@ package model
 
 import "time"
 
-// JobStatus represents the lifecycle state of a job.
 type JobStatus string
 
 const (
@@ -14,7 +13,6 @@ const (
 	JobCanceled JobStatus = "CANCELED"
 )
 
-// JobType represents supported job execution types.
 type JobType string
 
 const (
@@ -26,7 +24,6 @@ const (
 	JobWait       JobType = "wait"
 )
 
-// Job is the main server-side job entity.
 type Job struct {
 	ID              string         `json:"id"`
 	Name            string         `json:"name"`
@@ -45,7 +42,6 @@ type Job struct {
 	Result          map[string]any `json:"result,omitempty"`
 }
 
-// Agent is the server-side representation of a connected worker.
 type Agent struct {
 	ID           string    `json:"id"`
 	Hostname     string    `json:"hostname"`
@@ -57,10 +53,33 @@ type Agent struct {
 	Status       string    `json:"status"`
 }
 
-// TODO: Candidate should define request/response DTOs clearly.
-// Suggested DTOs:
-//   CreateJobRequest
-//   RegisterAgentRequest
-//   JobResultRequest
-//   ErrorResponse
-//   NextJobResponse
+
+
+
+type CreateJobRequest struct {
+	Name           string         `json:"name"`
+	Type           string         `json:"type"`
+	Payload        map[string]any `json:"payload"`
+	TimeoutSeconds int            `json:"timeout_seconds"`
+	MaxRetries     int            `json:"max_retries"`
+}
+
+type RegisterAgentRequest struct {
+	ID           string   `json:"id"`
+	Hostname     string   `json:"hostname"`
+	OS           string   `json:"os"`
+	Arch         string   `json:"arch"`
+	Version      string   `json:"version"`
+	Capabilities []string `json:"capabilities"`
+}
+
+type JobResultRequest struct {
+	Status string         `json:"status"`
+	Logs   []string       `json:"logs"`
+	Result map[string]any `json:"result,omitempty"`
+	Error  string         `json:"error,omitempty"`
+}
+
+type ErrorResponse struct {
+	Error string `json:"error"`
+}
