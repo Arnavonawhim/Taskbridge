@@ -59,12 +59,10 @@ func (m *MemoryStore) CreateJob(job model.Job) (model.Job, error) {
 	return job, nil
 }
 
-// ListJobs returns all jobs (in no guaranteed order).
 func (m *MemoryStore) ListJobs() ([]model.Job, error) {
 	m.mu.Lock()
 	defer m.mu.Unlock()
 
-	// Collect map values into a slice.
 	result := make([]model.Job, 0, len(m.jobs))
 	for _, j := range m.jobs {
 		result = append(result, j)
@@ -137,7 +135,6 @@ func (m *MemoryStore) Heartbeat(agentID string) error {
 	return nil
 }
 
-// ListAgents returns all registered agents.
 func (m *MemoryStore) ListAgents() ([]model.Agent, error) {
 	m.mu.Lock()
 	defer m.mu.Unlock()
@@ -147,6 +144,20 @@ func (m *MemoryStore) ListAgents() ([]model.Agent, error) {
 		result = append(result, a)
 	}
 	return result, nil
+}
+
+func (m *MemoryStore) CleanStaleAgents(timeout time.Duration) error {
+	m.mu.Lock()
+	defer m.mu.Unlock()
+
+	cutoff := time.Now().Add(-timeout)
+	for id, agent := range m.agents {
+		if agent.LastSeen.Before(cutoff) {
+			agent.Status = "offline"
+			m.agents[id] = agent
+		}
+	}
+	return nil
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
