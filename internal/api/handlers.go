@@ -45,6 +45,7 @@ func (h *Handler) CreateJob(w http.ResponseWriter, r *http.Request) {
 		model.JobTCPCheck:   true,
 		model.JobFileExists: true,
 		model.JobChecksum:   true,
+		model.JobCopyFile:   true,
 		model.JobWriteFile:  true,
 		model.JobWait:       true,
 	}

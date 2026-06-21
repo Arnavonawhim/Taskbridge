@@ -1,0 +1,9 @@
+{
+  "name": "check-config-file",
+  "type": "file_exists",
+  "payload": {
+    "path": "c:/Users/agraw_maqc4sw/Documents/Python/taskbridge/go.mod"
+  },
+  "timeout_seconds": 5,
+  "max_retries": 0
+}

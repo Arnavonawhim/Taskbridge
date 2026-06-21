@@ -20,6 +20,7 @@ const (
 	JobTCPCheck   JobType = "tcp_check"
 	JobFileExists JobType = "file_exists"
 	JobChecksum   JobType = "checksum"
+	JobCopyFile   JobType = "copy_file"
 	JobWriteFile  JobType = "write_file"
 	JobWait       JobType = "wait"
 )

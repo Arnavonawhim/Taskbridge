@@ -1,0 +1,10 @@
+{
+  "name": "hash-config-file",
+  "type": "checksum",
+  "payload": {
+    "path": "c:/Users/agraw_maqc4sw/Documents/Python/taskbridge/go.mod",
+    "algorithm": "md5"
+  },
+  "timeout_seconds": 10,
+  "max_retries": 1
+}

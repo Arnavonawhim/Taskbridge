@@ -188,3 +188,40 @@ func TestWaitExecutor(t *testing.T) {
 		t.Errorf("expected failure due to context cancellation, got %s", resCancel.Status)
 	}
 }
+
+func TestCopyFileExecutor(t *testing.T) {
+	tmpDir, err := os.MkdirTemp("", "taskbridge-test")
+	if err != nil {
+		t.Fatalf("failed to create temp dir: %v", err)
+	}
+	defer os.RemoveAll(tmpDir)
+
+	src := filepath.Join(tmpDir, "src.txt")
+	dst := filepath.Join(tmpDir, "dst.txt")
+
+	if err := os.WriteFile(src, []byte("hello copy"), 0644); err != nil {
+		t.Fatalf("failed to write source file: %v", err)
+	}
+
+	ex := &CopyFile{}
+	job := model.Job{
+		Payload: map[string]any{
+			"src": src,
+			"dst": dst,
+		},
+	}
+
+	res := ex.Execute(context.Background(), job)
+	if res.Status != model.JobSuccess {
+		t.Errorf("expected success, got %s (err: %s)", res.Status, res.Error)
+	}
+
+	content, err := os.ReadFile(dst)
+	if err != nil {
+		t.Fatalf("failed to read destination file: %v", err)
+	}
+
+	if string(content) != "hello copy" {
+		t.Errorf("unexpected content: %s", string(content))
+	}
+}

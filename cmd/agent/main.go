@@ -22,6 +22,7 @@ func main() {
 	registry.Register(&executor.TCPCheck{})
 	registry.Register(&executor.FileExists{})
 	registry.Register(&executor.Checksum{})
+	registry.Register(&executor.CopyFile{})
 	registry.Register(&executor.WriteFile{})
 	registry.Register(&executor.Wait{})
 

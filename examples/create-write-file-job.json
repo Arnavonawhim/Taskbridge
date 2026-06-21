@@ -1,0 +1,10 @@
+{
+  "name": "create-temp-config",
+  "type": "write_file",
+  "payload": {
+    "path": "c:/Users/agraw_maqc4sw/Documents/Python/taskbridge/temp.txt",
+    "content": "temp taskbridge settings"
+  },
+  "timeout_seconds": 10,
+  "max_retries": 1
+}

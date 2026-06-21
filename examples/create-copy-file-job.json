@@ -1,0 +1,10 @@
+{
+  "name": "backup-go-mod",
+  "type": "copy_file",
+  "payload": {
+    "src": "c:/Users/agraw_maqc4sw/Documents/Python/taskbridge/go.mod",
+    "dst": "c:/Users/agraw_maqc4sw/Documents/Python/taskbridge/go.mod.bak"
+  },
+  "timeout_seconds": 10,
+  "max_retries": 1
+}
